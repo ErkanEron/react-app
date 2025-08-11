@@ -1,0 +1,20 @@
+[build]
+  base = "client"
+  publish = "client/build"
+  command = "npm run build"
+
+[build.environment]
+  REACT_APP_API_URL = "https://melonotes-api.herokuapp.com"
+
+[[redirects]]
+  from = "/api/*"
+  to = "https://melonotes-api.herokuapp.com/api/:splat"
+  status = 200
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
+[context.development.environment]
+  REACT_APP_API_URL = "http://localhost:5000"

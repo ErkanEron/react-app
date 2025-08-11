@@ -1,0 +1,27 @@
+{
+  "name": "melonotes-server",
+  "version": "1.0.0",
+  "description": "Backend API for MELONOTES - Melo's special note-taking app 💖",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "nodemon server.js"
+  },
+  "dependencies": {
+    "@types/react-router-dom": "^5.3.3",
+    "bcryptjs": "^3.0.2",
+    "cors": "^2.8.5",
+    "express": "^4.18.2",
+    "express-validator": "^7.0.1",
+    "jsonwebtoken": "^9.0.2",
+    "multer": "^1.4.5-lts.1",
+    "react-router-dom": "^7.8.0",
+    "slate": "^0.118.0",
+    "slate-history": "^0.113.1",
+    "slate-react": "^0.117.4",
+    "sqlite3": "^5.1.6"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1"
+  }
+}

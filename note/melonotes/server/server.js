@@ -15,7 +15,10 @@ const corsOptions = {
     'http://localhost:3000',
     'http://localhost:3001', 
     'http://localhost:3002',
-    'https://your-netlify-domain.netlify.app', // Update with your actual Netlify domain
+    'https://melotakesnotes.com', // Production domain
+    'https://www.melotakesnotes.com', // Production domain with www
+    'https://glittering-raindrop-ce5ded.netlify.app', // Specific Netlify domain
+    'https://*.netlify.app', // Netlify domains
     'file://' // For Electron app
   ],
   credentials: true,

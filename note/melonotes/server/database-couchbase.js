@@ -15,7 +15,7 @@ class CouchbaseDatabase {
   async init() {
     try {
       // Couchbase Capella connection
-      const connectionString = 'couchbases://cb.8ezgeensktp1zfgd.cloud.couchbase.com';
+      const connectionString = process.env.COUCHBASE_CONNECTION_STRING || 'couchbases://cb.8ezgeensktp1zfgd.cloud.couchbase.com';
       
       // Environment variables for credentials
       const username = process.env.COUCHBASE_USERNAME;
@@ -86,29 +86,41 @@ class CouchbaseDatabase {
 
   async createDefaultUser() {
     try {
-      const userId = 'user::frieren';
-      
-      // Check if user already exists
+      // Create frieren user
+      const frierenUserId = 'user::frieren';
       try {
-        await this.collection.get(userId);
-        console.log('💖 Default user already exists for Melo!');
-        return;
+        await this.collection.get(frierenUserId);
       } catch (err) {
-        // User doesn't exist, create it
+        const hashedPassword1 = bcrypt.hashSync('MeldaErkan!5352', 10);
+        const frierenDoc = {
+          type: 'user',
+          id: 1,
+          username: 'frieren',
+          password: hashedPassword1,
+          created_at: new Date().toISOString()
+        };
+        await this.collection.upsert(frierenUserId, frierenDoc);
+        console.log('💖 Default user "frieren" created for Melo!');
       }
-      
-      const hashedPassword = bcrypt.hashSync('MeldaErkan!5352', 10);
-      
-      const userDoc = {
-        type: 'user',
-        id: 1,
-        username: 'frieren',
-        password: hashedPassword,
-        created_at: new Date().toISOString()
-      };
-      
-      await this.collection.upsert(userId, userDoc);
-      console.log('💖 Default user "frieren" created for Melo!');
+
+      // Create melo user
+      const meloUserId = 'user::melo';
+      try {
+        await this.collection.get(meloUserId);
+      } catch (err) {
+        const hashedPassword2 = bcrypt.hashSync('password', 10);
+        const meloDoc = {
+          type: 'user',
+          id: 2,
+          username: 'melo',
+          password: hashedPassword2,
+          created_at: new Date().toISOString()
+        };
+        await this.collection.upsert(meloUserId, meloDoc);
+        console.log('💖 Default user "melo" created for Melo!');
+      }
+
+      console.log('💖 Default users already exist for Melo!');
       
     } catch (error) {
       console.error('💔 Error creating default user:', error);
